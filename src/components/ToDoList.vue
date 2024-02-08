@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul>
-            <li v-for="(todoItem, index) in this.$store.state.todoItems" v-bind:key="todoItem" class="shadow">
+            <li v-for="(todoItem, index) in this.$store.getters.getToDoItems" v-bind:key="todoItem" class="shadow">
                 <i v-bind:class="{checkBtnCompleted: todoItem.completed}" class="fa-regular fa-circle-check checkBtn" v-on:click="toggleComplete(todoItem,index)"></i>
                 <!-- todoItem.completed가 true면 textCompleted라는 클래스가 존재하게 되고 false면 사라진다. -->
                 <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>

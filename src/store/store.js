@@ -25,6 +25,11 @@ const store = createStore({
         todoItems: storage.fetch(),
         headerText: "hello"
     },
+    getters : {
+        getToDoItems (state) {
+            return state.todoItems
+        }
+    },
     mutations : {
         // 새로운 todo를 등록하는 메서드
         addToDoItems (state, newToDoItem) {
