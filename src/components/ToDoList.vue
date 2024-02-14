@@ -1,7 +1,7 @@
 <template>
     <div>
         <ul>
-            <li v-for="(todoItem, index) in this.$store.getters.getToDoItems" v-bind:key="todoItem" class="shadow">
+            <li v-for="(todoItem, index) in this.getToDoItems" v-bind:key="todoItem" class="shadow">
                 <i v-bind:class="{checkBtnCompleted: todoItem.completed}" class="fa-regular fa-circle-check checkBtn" v-on:click="toggleComplete(todoItem,index)"></i>
                 <!-- todoItem.completed가 true면 textCompleted라는 클래스가 존재하게 되고 false면 사라진다. -->
                 <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
@@ -14,6 +14,9 @@
 </template>
 
 <script>
+
+    import {mapGetters} from "vuex"
+
     export default {
         // props: ['todoItems'],
         methods:{
@@ -30,6 +33,16 @@
                 this.$store.commit("toggleCompleted", obj)
                 // this.$emit("toggleCompleted", todoItem,index)
             }
+        },
+        // template코드에서 {{}}를 사용하면 데이터의 속성 값을 표현할 수 있는데 추가적으로
+        // 여기서 자바스크립트의 내장 Api를 사용하여 간단한 계산을 할 수가 있다.
+        // 하지만 이렇게 계산까지 들어가면 가독성이 떨어지므로 computed에 선언하여 {{}}에는 compute에 선언한 함수를 호출하여 값을 사용한다.
+        // 아래와 같이 해 두면 html 코드의 가독성을 늘릴 수 있다.
+        computed : {
+            // getToDoItems () {
+            //     return this.$store.getters.getToDoItems
+            // }
+            ...mapGetters(["getToDoItems"])
         }
     }
 </script>
